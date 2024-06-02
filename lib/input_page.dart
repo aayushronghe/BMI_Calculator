@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
-
-const bottomContainerHeight = 73.0;
-const activeCardColor = 0xff1d1e33;
-const inactiveCardColor = 0xff111328;
+import 'constants.dart';
 
 enum Gender { male, female, none }
 
@@ -15,6 +12,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender selectGender = Gender.none;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +23,7 @@ class _InputPageState extends State<InputPage> {
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             child: Row(
@@ -37,8 +36,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     colour: selectGender == Gender.male
-                        ? Color(activeCardColor)
-                        : Color(inactiveCardColor),
+                        ? Color(kActiveCardColor)
+                        : Color(kInactiveCardColor),
                     cardChild: MaleFemaleWidget('MALE'),
                   ),
                 ),
@@ -50,8 +49,8 @@ class _InputPageState extends State<InputPage> {
                       });
                     },
                     colour: selectGender == Gender.female
-                        ? Color(activeCardColor)
-                        : Color(inactiveCardColor),
+                        ? Color(kActiveCardColor)
+                        : Color(kInactiveCardColor),
                     cardChild: MaleFemaleWidget('FEMALE'),
                   ),
                 )
@@ -60,8 +59,44 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCard(
-              colour: Color(activeCardColor),
-              cardChild: Row(),
+              colour: Color(kActiveCardColor),
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'HEIGHT',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      color: Color(0xff8d8e98),
+                    ),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(
+                        height.toString(),
+                        style: kNumberStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: TextStyle(color: Color(0xff8d8e98)),
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: height.toDouble(),
+                    min: 120.0,
+                    max: 220.0,
+                    onChanged: (double newValue) {
+                      setState(() {
+                        height = newValue.toInt();
+                      });
+                    },
+                  )
+                ],
+              ),
               onPress: () {},
             ),
           ),
@@ -70,14 +105,14 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    colour: Color(activeCardColor),
+                    colour: Color(kActiveCardColor),
                     cardChild: Column(),
                     onPress: () {},
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    colour: Color(activeCardColor),
+                    colour: Color(kActiveCardColor),
                     cardChild: Column(),
                     onPress: () {},
                   ),
@@ -94,7 +129,7 @@ class _InputPageState extends State<InputPage> {
             color: Color(0xffeb1555),
             margin: EdgeInsets.symmetric(vertical: 10.0),
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
           )
         ],
       ),
