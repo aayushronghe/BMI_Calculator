@@ -1,3 +1,3 @@
-#BMI Calculator
+# BMI Calculator
 
-A BMI calculator app using Flutter and Dart packages.
+A BMI calculator app using Flutter and Dart packages
